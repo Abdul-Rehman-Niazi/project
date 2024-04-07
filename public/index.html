@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Chat</title>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+    <body>
+        <nav>
+            <img class="logo" src="contactus.png">
+        </nav>
+        <div class="container">
+            <div class="message left">Hey Abdul Hww are you</div>
+            <div class="message left">Hey Abdul Hww are you</div>
+            <div class="message right">I am all fine</div>
+
+        </div>
+        <div class="send">
+            <form action="#" class="send-container">
+                <input type="text" name="messageinp" id="messageinp">
+                <button class="btn" type="submit">Send</button>
+                <script>
+                    const socket = io();
+                    const form = document.querySelector('.send-container');
+                    const messageInput = document.getElementById('messageinp'); // Corrected ID
+                    const messageContainer = document.querySelector('.container');
+
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const message = messageInput.value;
+
+                        append(`You: ${message}`, 'right');
+                        socket.emit('send', message); // Emitting the 'send' event to the server
+                        messageInput.value = '';
+                    });
+
+                    const append = (message, position) => {
+                        const messageElement = document.createElement('div');
+                        messageElement.innerText = message;
+                        messageElement.classList.add('message');
+                        messageElement.classList.add(position);
+                        messageContainer.append(messageElement);
+                    };
+
+                </script>
+
+
+            </form>
+        </div>
+
+    </body>
+</body>
+
+</html>
