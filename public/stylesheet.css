@@ -54,6 +54,14 @@
     clear: both;
 }
 
+.center {
+    clear: both;
+    float: left;
+    text-align: center;
+    size: 22px;
+    font-style: italic;
+}
+
 .right {
     float: right;
     clear: both;

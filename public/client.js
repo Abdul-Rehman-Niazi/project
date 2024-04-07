@@ -1,4 +1,4 @@
-//const socket = io(); // Connect to the server (assuming the server is running on the same host and default port)
+const socket = io(); // Connect to the server (assuming the server is running on the same host and default port)
 
 const name = prompt('Enter your Name to join');
 socket.emit('new-user-joined', name); // Emitting the 'new-user-joined' event to the server with the entered name
@@ -10,12 +10,13 @@ const messageContainer = document.querySelector('.container');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const message = messageInput.value;
-
     append(`You: ${message}`, 'right');
     socket.emit('send', message); // Emitting the 'send' event to the server
     messageInput.value = '';
 });
-
+// const append_status = (status, position) =>{
+//     const statusElement = document.    
+// }
 const append = (message, position) => {
     const messageElement = document.createElement('div');
     messageElement.innerText = message;
@@ -25,9 +26,15 @@ const append = (message, position) => {
 };
 
 socket.on('receive', data => {
-    append(`${data.name}: ${data.message}`, "right");
+    append(`${data.name}: ${data.message}`, "left");
 });
 
+
+socket.on('user-joined', name => {
+    append(`${name} joined the chat`, "center");
+});
+
+
 socket.on('left', name => {
-    append(`${name} left the chat`, "left");
+    append(`${name} left the chat`, "center");
 });
